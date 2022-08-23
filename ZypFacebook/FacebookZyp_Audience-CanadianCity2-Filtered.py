@@ -20,51 +20,43 @@ with open('AccessToken.txt') as f:
     ACCESS_TOKEN = f.readlines();
     f.close();
 
-# ------------------------------------------------------------
+# ---------------------------------------------------------------
 
-df_old = pd.read_csv(r'data/ZypFacebook_Audience-TimeOfDay.csv', index_col=False, encoding='utf-8');
+df_old = pd.read_csv(r'data/ZypFacebook_Audience-CanadianCity2-Filtered.csv', index_col=False, encoding='utf8');
 lastMostRecentDate = df_old['end_time'][0];
 sinceDate = time.mktime(datetime.datetime.strptime(lastMostRecentDate,"%Y-%m-%d").timetuple());
 print("Most recent date in the imported dataset: " + str(lastMostRecentDate) + " = " + str(sinceDate));
 # sinceDate = 1523948400;
 
-# ------------------------------------------------------------
+# ---------------------------------------------------------------
 
-results = req_facebook("zypgallery/insights?metric=page_fans_online&period=day&since=" + str(sinceDate)).json();
+results = req_facebook("zypgallery/insights?metric=page_impressions_by_city_unique&period=day&since=" + str(sinceDate)).json();
 
-timeAbbreviation = [];
-for i in range(24):
-    timeAbbreviation.append(i);
-
-timeRange = [];
-count = 0;
-while count < 23:
-    startTime = str(timeAbbreviation[count]) + ":00";
-    endTime = str(timeAbbreviation[count+1]) + ":00";
-    timeRange.append(startTime + " - " + endTime);
-    count += 1;
-timeRange.append(str(timeAbbreviation[23]) + ":00 - " + "24:00");
+df_cityNames = pd.read_csv(r'CanadianCitiesFiltered.csv');
+cityNames = [];
+for i in df_cityNames.index:
+    cityNames.append(df_cityNames["City Names"][i]);
 
 labels = [];
 labels.append("end_time");
-for range in timeRange:
-    labels.append(range);
+for city in cityNames:
+    labels.append(city);
 
-def getTimeOfDayValues(results,timeAbbreviation,index):
+def getCityValues(results,cityNames,index):
     row = [];
     dateValue = parser.parse(results['data'][0]['values'][index].get('end_time',0).split(":")[0][0:10]);
     row.append(dateValue)
-    for lbl in timeAbbreviation:
-        colValue = results['data'][0]['values'][index]['value'].get(str(lbl),0)
+    for lbl in cityNames:
+        colValue = results['data'][0]['values'][index]['value'].get(lbl,0)
         row.append(colValue);
     return row;
 
-def getTimeOfDayData(results,i=0):
+def getCityData(results,i=0):
     data = [];
     while True:
         try:
             if(i <= len(results["data"][0]["values"])):
-                data.append(getTimeOfDayValues(results,timeAbbreviation,i));
+                data.append(getCityValues(results,cityNames,i));
                 i += 1;
             else:
                 results = paginate(results,"previous").json();
@@ -74,11 +66,11 @@ def getTimeOfDayData(results,i=0):
             break;
     return data;
 
-data = getTimeOfDayData(results);
+data = getCityData(results);
 
-print("Time of Day insights data extracted");
+print("Canadian city insights data extracted");
 
-# ------------------------------------------------------------
+# ---------------------------------------------------------------
 
 df_temp = pd.DataFrame(data,columns=labels);
 df_temp = df_temp.sort_values(by='end_time', ascending=False);
@@ -88,15 +80,16 @@ df['end_time'] = pd.to_datetime(df['end_time']);
 df = df.drop_duplicates();
 df = df.sort_values(by='end_time', ascending=False);
 
-print("All extracted Time of Day insights data loaded into a dataframe");
+print("All extracted Canadian city insights data loaded into a dataframe");
 
-# ------------------------------------------------------------
+# ---------------------------------------------------------------
 
-df.to_csv("data/ZypFacebook_Audience-TimeOfDay.csv", index=False, encoding='utf8')
+df.to_csv("data/ZypFacebook_Audience-CanadianCity2-Filtered.csv", index=False, encoding='utf8')
+# df_temp.to_csv("data/ZypFacebook_Audience-CanadianCity2-Filtered.csv", index=False, encoding='utf8')
 
 print("Dataframe loaded as CSV");
 
-# ------------------------------------------------------------
+# ---------------------------------------------------------------
 
 def saveToGoogleSheets(googleSheetName, spreadsheetID, csvFilePath):
     sa = gspread.service_account(filename="zyp-art-gallery-62e00b2be4ff.json");
@@ -107,8 +100,8 @@ def saveToGoogleSheets(googleSheetName, spreadsheetID, csvFilePath):
     sa.import_csv(spreadsheetID, content);
     print("Dataframe loaded to Google Sheets");
 
-googleSheetName = "ZypFacebook_Audience-TimeOfDay";
-spreadsheetID = "188yyzZiKwo3a-vDhWUtkkKH7fN1Rx0uXWGvTf-3uee0";
-csvFilePath = "data/ZypFacebook_Audience-TimeOfDay.csv";
+googleSheetName = "ZypFacebook_Audience-CanadianCity2-Filtered";
+spreadsheetID = "17vmLUt3fqUgoUqm5jk5u4nPAuwKk630NEPxGXf1sV_Q";
+csvFilePath = "data/ZypFacebook_Audience-CanadianCity2-Filtered.csv";
 
 saveToGoogleSheets(googleSheetName, spreadsheetID, csvFilePath);

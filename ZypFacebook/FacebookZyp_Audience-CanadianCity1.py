@@ -91,7 +91,7 @@ print("Dataframe loaded as CSV");
 # ------------------------------------------------------------------------
 
 def saveToGoogleSheets(googleSheetName, spreadsheetID, csvFilePath):
-    sa = gspread.service_account(filename="zyp-art-gallery-service_account.json");
+    sa = gspread.service_account(filename="zyp-art-gallery-62e00b2be4ff.json");
     sh = sa.open(googleSheetName);
     wks = sh.worksheet(googleSheetName);
     wks.clear();

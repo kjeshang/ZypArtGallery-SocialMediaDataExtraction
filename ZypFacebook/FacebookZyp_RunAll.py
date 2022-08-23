@@ -38,9 +38,17 @@ print("*** Zyp Art Gallery Canadian City 1 data ***")
 os.system("python FacebookZyp_Audience-CanadianCity1.py");
 print("Zyp Art Gallery Canadian City 1 data extracted!\n");
 
+print("*** Zyp Art Gallery Canadian City 1 Filtered data ***")
+os.system("python FacebookZyp_Audience-CanadianCity1-Filtered.py");
+print("Zyp Art Gallery Canadian City 1 Filtered data extracted!\n");
+
 print("*** Zyp Art Gallery Canadian City 2 data ***")
 os.system("python FacebookZyp_Audience-CanadianCity2.py");
 print("Zyp Art Gallery Canadian City 2 data extracted!\n");
+
+print("*** Zyp Art Gallery Canadian City 2 Filtered data ***")
+os.system("python FacebookZyp_Audience-CanadianCity2-Filtered.py");
+print("Zyp Art Gallery Canadian City 2 Filtered data extracted!\n");
 
 print("*** Zyp Art Gallery Country 1 data ***")
 os.system("python FacebookZyp_Audience-Country1.py");

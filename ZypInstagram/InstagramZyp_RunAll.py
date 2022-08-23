@@ -30,6 +30,10 @@ print("*** Zyp Art Gallery Canadian City data ***")
 os.system("python InstagramZyp_Audience-CanadianCity.py");
 print("Zyp Art Gallery Canadian City data extracted!\n");
 
+print("*** Zyp Art Gallery Canadian City Filtered data ***")
+os.system("python InstagramZyp_Audience-CanadianCity-Filtered.py");
+print("Zyp Art Gallery Canadian City Filtered data extracted!\n");
+
 print("*** Zyp Art Gallery Country data ***")
 os.system("python InstagramZyp_Audience-Country.py");
 print("Zyp Art Gallery Country data extracted!\n");

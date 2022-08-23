@@ -36,6 +36,7 @@ print("Most recent date in the imported dataset: " + str(lastMostRecentDate) + "
 INSIGHT = "follower_count";
 
 results = req_facebook("insights?metric="+INSIGHT+"&period=day&since="+str(sinceDate-172800)).json();
+# results = req_facebook("insights?metric="+INSIGHT+"&period=day").json();
 
 labels = ["end_time",INSIGHT];
 
@@ -85,7 +86,7 @@ print("Dataframe loaded as CSV");
 # ---------------------------------------------------------------
 
 def saveToGoogleSheets(googleSheetName, spreadsheetID, csvFilePath):
-    sa = gspread.service_account(filename="zyp-art-gallery-service_account.json");
+    sa = gspread.service_account(filename="zyp-art-gallery-62e00b2be4ff.json");
     sh = sa.open(googleSheetName);
     wks = sh.worksheet(googleSheetName);
     wks.clear();
