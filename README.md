@@ -13,6 +13,24 @@ The scripts were created using the **Python** programming language with the help
 
 Microsoft Visual Studio Code was the IDE used to construct the Python scripts. The Python version used was 3.10.1.
 
+There are three sub-categories of Facebook & Instagram data that is retrieved from Facebook Graph API.
+
+|Data|Explanation|
+|--|--|
+|Posts|Data describing the performance of the Social Media Account's posts.|
+|Page|Data describing the performance of the Social Media Account's page.|
+|Audience|Data describing the performance of Social Media Account in terms of Age & Gender, Country, Canadian City, and Time of Day.|
+
 ## Important Note
 
 This GitHub repository was created for the purpose of viewing the codebase and documentation. However, the social media data files, Facebook Graph API Access Token, Google Service Account Address, and Google Services Account Private Key are not provided in this repository to protect the privacy of the Zyp Art Gallery organization and the followers of the organization's social media accounts.
+
+## Environment Setup
+
+
+
+## How the Data Extraction, Transformation, and Loading takes place
+
+
+
+
