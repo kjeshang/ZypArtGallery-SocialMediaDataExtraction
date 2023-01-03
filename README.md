@@ -63,13 +63,13 @@ As aforementioned, the social media data extraction code was created using Pytho
     * The combined dataframe is then saved as a CSV file. In turn, overwriting the earlier imported social media data file.
     * Then, the newly saved social media data file’s contents are saved to the corresponding Google Sheets file on the organization’s Google Drive. Specifically, the existing data in the Google Sheets file is deleted, and then the data in the CSV file are then copied and pasted in the Google Sheets file. This is accomplished through a function that takes parameters consisting of Google Sheets file name, sheet name, and spreadsheet ID, along with authentication via the Google service account private key.
 
-## References
+## Credits (i.e., References)
 
-Below is a list of resources that were imperative to setting up an environment to retrieve social media data of the organization’s Facebook and Instagram pages.
+Despite working on this project independently, I referred to many online resources to craft the social media data extraction code, and update it reasonable increments over a period of time. Below is a list of resources that were imperative to setting up an environment to retrieve social media data of the organization’s Facebook and Instagram pages.
 *  Setting up Facebook for Developers and working with Graph Explorer
     * [Lesson-01 :Introduction & Understanding Graph API - Facebook Data Analysis with Python](https://www.youtube.com/watch?v=LmhjVT9gIwk&list=PLhpgLgFy42uVqkUa_5P0HZIg0dwbVm96D&index=2) - Nour Galaby (YouTube)
     * [Using Facebook's Graph API Explorer to retrieve Insights data](https://www.klipfolio.com/blog/facebook-graph-api-explorer) - Jonathan Taylor (Klipfolio)
-*  Facebook Graph API acces tokens
+*  Facebook Graph API access tokens
     * [Facebook access token - Error validating access token: Session has expired](https://www.igorkromin.net/index.php/2020/10/02/facebook-access-token-error-validating-access-token-session-has-expired/) - Igor Kromin
     * [How To Get Facebook Long-Lived User Access Token?](https://www.sociablekit.com/get-facebook-long-lived-user-access-token/) - Mike (SociableKIT)
 * Wrangling data from Facebook Graph API
@@ -99,12 +99,4 @@ Below is a list of resources that were imperative to setting up an environment t
     * [Examples of gspread Usage](https://docs.gspread.org/en/latest/user-guide.html#updating-cells) - _gspread_
     * [YouTube Video Code](https://github.com/PrettyPrinted/youtube_video_code/tree/master/2021/10/14/How%20to%20Use%20Google%20Sheets%20With%20Python%20(2021)) - PrettyPrinted (GitHub)
     * [How to read Google Sheets data in Pandas with GSpread](https://practicaldatascience.co.uk/data-science/how-to-read-google-sheets-data-in-pandas-with-gspread) - Matt Clarke (Practical Data Science)
-    * [gspread-pandas Documentation - _Release 3.2.2_](https://readthedocs.org/projects/gspread-pandas/downloads/pdf/latest/) - Diego Fernandez (gspread) 
-    
-
-
-
-    
-
-
-
+    * [gspread-pandas Documentation - _Release 3.2.2_](https://readthedocs.org/projects/gspread-pandas/downloads/pdf/latest/) - Diego Fernandez (gspread)
