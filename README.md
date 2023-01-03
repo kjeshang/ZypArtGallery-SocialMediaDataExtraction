@@ -63,7 +63,8 @@ As aforementioned, the social media data extraction code was created using Pytho
     * The combined dataframe is then saved as a CSV file. In turn, overwriting the earlier imported social media data file.
     * Then, the newly saved social media data file’s contents are saved to the corresponding Google Sheets file on the organization’s Google Drive. Specifically, the existing data in the Google Sheets file is deleted, and then the data in the CSV file are then copied and pasted in the Google Sheets file. This is accomplished through a function that takes parameters consisting of Google Sheets file name, sheet name, and spreadsheet ID, along with authentication via the Google service account private key.
 
-## Credits (i.e., References)
+## Credits
+> The References section
 
 Despite working on this project independently, I referred to many online resources to craft the social media data extraction code, and update it reasonable increments over a period of time. Below is a list of resources that were imperative to setting up an environment to retrieve social media data of the organization’s Facebook and Instagram pages.
 *  Setting up Facebook for Developers and working with Graph Explorer
