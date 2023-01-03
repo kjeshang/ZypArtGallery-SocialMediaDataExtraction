@@ -94,7 +94,6 @@ Despite working on this project independently, I referred to many online resourc
     * [Difference in Engaged Users (Facebook page) and Engaged Users (Insights API)](https://stackoverflow.com/questions/37419788/difference-in-engaged-users-facebook-page-and-engaged-users-insights-api) - _StackOverflow_
     * [Get Post Insights for multiple posts in one call using Graph Api 2.7](https://stackoverflow.com/questions/38924707/get-post-insights-for-multiple-posts-in-one-call-using-graph-api-2-7/39104504) - _StackOverflow_
     * [Facebook Page insights API to retrieve different insight metrics using python](https://stackoverflow.com/questions/44491319/facebook-page-insights-api-to-retrieve-different-insight-metrics-using-python) - _StackOverflow_
-    * [Get Post Insights for multiple posts in one call using Graph Api 2.7](https://stackoverflow.com/questions/38924707/get-post-insights-for-multiple-posts-in-one-call-using-graph-api-2-7) - _StackOverflow_
     * [List of countries and cities to be used in Facebook Graph API for targeting](https://stackoverflow.com/questions/7227498/list-of-countries-and-cities-to-be-used-in-facebook-graph-api-for-targeting) - _StackOverflow_
 * The full analysis process
     * [Analyse your Personal Facebook Data with Python](https://medium.com/analytics-vidhya/analyse-your-personal-facebook-data-with-python-5d877e556692) - Emy Adigun (Medium)
