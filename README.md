@@ -26,6 +26,16 @@ There are three sub-categories of Facebook & Instagram data that is retrieved fr
 
 This GitHub repository was created for the purpose of viewing the codebase and documentation. However, the social media data files, Facebook Graph API Access Token, Google Service Account Address, and Google Services Account Private Key are not provided in this repository to protect the privacy of the Zyp Art Gallery organization and the followers of the organization's social media accounts.
 
+The social media data extraction code scripts to retrieve Facebook data are within the **ZypFacebook** directory. The social media data extraction code scripts to retrieve Instagram data are within the **ZypInstagram** directory. 
+
+This repository also contains referential documentation to better explain important aspects of performing social media data extraction and understanding the various social media metrics.
+
+|Document|Description|
+|--|--|
+|Facebook Data Reference Guide|Data Dictionary containing Facebook metrics, full metric names, and metric explanations.|
+|Instagram Data Reference Guide|Data Dictionary containing Instagram metrics, full metric names, and metric explanations.|
+|Generate Graph API Access Token|The steps taken to generate a long-lived Facebook Graph API Access Token to help authenticate & facilitate API requests to retrieve social media data.|
+
 ## How the Project works
 > This section explains in detail what was explained in the Description section. In addition, explains the flow of data in terms of extraction, transformation, and loading, which is performed by the Python scripts.
 
