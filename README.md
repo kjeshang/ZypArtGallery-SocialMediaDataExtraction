@@ -39,3 +39,72 @@ The organization utlilzes Google Drive as the primary office suite and data stor
 ### How the Project Runs
 As aforementioned, the social media data extraction code was created using Python. It was coded using VS Code. There are multiple scripts that are dedicated to extracting different types of metrics, yet they all follow a similar process with slight variations in terms of data cleaning & transformation. In practice, there is another Python script that runs all of the other extraction code scripts all at once. In essence, the Python scripts I wrote go through the following stages.
 
+1. Setup
+    * Import the following packages: requests, pandas, time, datetime, dateutil, gspread.
+    * Create function to make request to Facebook Graph API.
+    * Create function that paginates through API request output if all output is not visible at once.
+    * Instantiate variables for API version and request URL.
+    * Retrieve current long-lived access token from text file.
+2. Import Data
+    * a. Retrieve social media data file which is in CSV format. The file consists of data that is until the last time the extraction code was run which is typically the week prior. It would take the form of a pandas dataframe.
+    * As there is a date column in the data file, the script takes the most recent date in the column (which is in the first row), and then instantiates as a variable to be used for the request made in the forthcoming stage.
+    * The recent date is then converted from datetime format into unix time format.
+3. Extraction
+    * Using the API request function along with the request URL & API version variables, and the variable holding the recent date, a request is made to Facebook Graph API to retrieve data of the specified metrics in the request. The output is instantiated to a variable and is of a JSON structure.
+    * Create column heading labels that would be used for the dataframe for the eventual dataframe.
+    * Create function that is able to extract the date and metric values from a JSON object and appends to a list. There is a nested JSON object per date.
+    * Create function that applies the aforementioned function throughout the request output per nested JSON object in the form of a loop.
+    * Instantiate the aforementioned function to variable that would be used as the basis to create a dataframe of the newly extracted data.
+4. Transformation
+    * The newly extracted data and column labels (created in the prior stage) are used to create a dataframe. The dataframe rows would be in descending order by date (i.e., the most latest date to earliest date).
+    * The dataframes of the imported data and newly extracted data are then combined together.
+    * Some data cleaning is performed to the combined dataframe such as dropping duplicates.
+5. Loading
+    * The combined dataframe is then saved as a CSV file. In turn, overwriting the earlier imported social media data file.
+    * Then, the newly saved social media data file’s contents are saved to the corresponding Google Sheets file on the organization’s Google Drive. Specifically, the existing data in the Google Sheets file is deleted, and then the data in the CSV file are then copied and pasted in the Google Sheets file. This is accomplished through a function that takes parameters consisting of Google Sheets file name, sheet name, and spreadsheet ID, along with authentication via the Google service account private key.
+
+## References
+
+Below is a list of resources that were imperative to setting up an environment to retrieve social media data of the organization’s Facebook and Instagram pages.
+*  Setting up Facebook for Developers and working with Graph Explorer
+    * [Lesson-01 :Introduction & Understanding Graph API - Facebook Data Analysis with Python](https://www.youtube.com/watch?v=LmhjVT9gIwk&list=PLhpgLgFy42uVqkUa_5P0HZIg0dwbVm96D&index=2) - Nour Galaby (YouTube)
+    * [Using Facebook's Graph API Explorer to retrieve Insights data](https://www.klipfolio.com/blog/facebook-graph-api-explorer) - Jonathan Taylor (Klipfolio)
+*  Facebook Graph API acces tokens
+    * [Facebook access token - Error validating access token: Session has expired](https://www.igorkromin.net/index.php/2020/10/02/facebook-access-token-error-validating-access-token-session-has-expired/) - Igor Kromin
+    * [How To Get Facebook Long-Lived User Access Token?](https://www.sociablekit.com/get-facebook-long-lived-user-access-token/) - Mike (SociableKIT)
+* Wrangling data from Facebook Graph API
+    * [Python in Digital Analytics: Automating Facebook metric reports](https://bubbletao.com/2017/05/31/python-in-digital-analytics-automating-facebook-metric-reports/) - Tom Tao (BubbleTao)
+* Metrics
+    * [Field list for Facebook Insights](https://supermetrics.com/api/getFields?ds=FB&amp;fieldType=met) - _Supermetrics_
+    * [Page Insights](https://developers.facebook.com/docs/graph-api/reference/v11.0/insights#post_impressions) - _Meta for Developers_
+    * [&quot;name&quot;:&quot;page_fans_country&quot,,](https://prezi.com/acd742tobfjg/quotnamequot-quotpage_fans_countryquot/) - Milan Lepík (Prezi)
+    * [IG Media Insights](https://developers.facebook.com/docs/instagram-api/reference/ig-media/insights/) - _Meta for Developers_
+* Requests to Facebook Graph API and Python
+    * [Difference in Engaged Users (Facebook page) and Engaged Users (Insights API)](https://stackoverflow.com/questions/37419788/difference-in-engaged-users-facebook-page-and-engaged-users-insights-api) - _StackOverflow_
+    * [Get Post Insights for multiple posts in one call using Graph Api 2.7](https://stackoverflow.com/questions/38924707/get-post-insights-for-multiple-posts-in-one-call-using-graph-api-2-7/39104504) - _StackOverflow_
+    * [Facebook Page insights API to retrieve different insight metrics using python](https://stackoverflow.com/questions/44491319/facebook-page-insights-api-to-retrieve-different-insight-metrics-using-python) - _StackOverflow_
+    * [Get Post Insights for multiple posts in one call using Graph Api 2.7](https://stackoverflow.com/questions/38924707/get-post-insights-for-multiple-posts-in-one-call-using-graph-api-2-7) - _StackOverflow_
+    * [List of countries and cities to be used in Facebook Graph API for targeting](https://stackoverflow.com/questions/7227498/list-of-countries-and-cities-to-be-used-in-facebook-graph-api-for-targeting) - _StackOverflow_
+* The full analysis process
+    * [Analyse your Personal Facebook Data with Python](https://medium.com/analytics-vidhya/analyse-your-personal-facebook-data-with-python-5d877e556692) - Emy Adigun (Medium)
+    * [Facebook Data Analysis with Python](https://www.youtube.com/playlist?list=PLhpgLgFy42uVqkUa_5P0HZIg0dwbVm96D) - Nour Galaby (YouTube)
+* Setting up Google service account via Google Cloud Console to use Python and Google Sheets
+    * [Python Google Sheets API Tutorial - 2019](https://www.youtube.com/watch?v=cnPlKLEGR7E&amp;list=LL&amp;index=11) - Tech with Tim (YouTube)
+    * [How to Use Google Sheets With Python (2022)](https://www.youtube.com/watch?v=bu5wXjz2KvU) - Pretty Printed (YouTube)
+    * [Export Pandas DataFrame To Google Sheet in Python (Google Sheets API Tutorial)](https://www.youtube.com/watch?v=TNloGW8NzrY) - Jie Jenn (YouTube)
+    * [Introduction to gspread_pandas](https://www.youtube.com/watch?v=2yIcNYzfzPw) - Diego Fernandez (YouTube)
+    * [From CSV to Google Sheet Using Python](https://medium.com/craftsmenltd/from-csv-to-google-sheet-using-python-ef097cb014f9) - Md. Nahidur Rahman (YouTube)
+* Specific ways to interact with Google Sheets using Python & gspread package
+    * [Google Spreadsheets Python API v4](https://github.com/burnash/gspread) - burnash (GitHub)
+    * [Examples of gspread Usage](https://docs.gspread.org/en/latest/user-guide.html#updating-cells) - _gspread_
+    * [YouTube Video Code](https://github.com/PrettyPrinted/youtube_video_code/tree/master/2021/10/14/How%20to%20Use%20Google%20Sheets%20With%20Python%20(2021)) - PrettyPrinted (GitHub)
+    * [How to read Google Sheets data in Pandas with GSpread](https://practicaldatascience.co.uk/data-science/how-to-read-google-sheets-data-in-pandas-with-gspread) - Matt Clarke (Practical Data Science)
+    * [gspread-pandas Documentation - _Release 3.2.2_](https://readthedocs.org/projects/gspread-pandas/downloads/pdf/latest/) - Diego Fernandez (gspread) 
+    
+
+
+
+    
+
+
+
